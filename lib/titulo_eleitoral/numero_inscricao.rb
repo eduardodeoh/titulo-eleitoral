@@ -66,7 +66,7 @@ module TituloEleitoral
         case
           when numero.is_a?(String) && !numero.empty?
             somente_numeros(numero).split('')
-          when numero.is_a?(Fixnum)
+          when numero.is_a?(Integer)
             numero.to_s.split('')
           else
             []
