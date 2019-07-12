@@ -130,4 +130,14 @@ describe TituloEleitoral::NumeroInscricao do
       numero.dv1.must_equal 0
     end
   end
+
+  describe 'geração de titulos aleatório' do
+    it 'deve retornar um titulo válido' do
+      50.times do
+        t = TituloEleitoral::NumeroInscricao.new(nil).random
+        TituloEleitoral::NumeroInscricao.new(t).valido?.must_equal true
+      end
+    end
+  end
+
 end

@@ -29,6 +29,20 @@ module TituloEleitoral
       UFS[digitos_uf] if uf_valida?
     end
 
+    def random
+      num = (1..8).map { rand(10).to_s }.join
+      uf = UFS.keys.sample
+
+      @numero = "#{num}#{uf}00".split('') # para setar a UF
+
+      @dv1 = calcula_digito_verificador(num.split('').map(&:to_i), MULTIPLICADORES_DV1)
+      @dv2 = calcula_digito_verificador("#{uf}#{@dv1}".split('').map(&:to_i), MULTIPLICADORES_DV2)
+
+      @numero = "#{num}#{uf}#{@dv1}#{@dv2}"
+
+      @numero
+    end
+
     private
       def primeiro_digito_verificador
         #Somar a multiplicação dos 8 primeiros digitos, respectivamente, por [2,3,4,5,6,7,8,9] e após calcular módulo 11 desta soma
@@ -52,7 +66,7 @@ module TituloEleitoral
         case
           when numero.is_a?(String) && !numero.empty?
             somente_numeros(numero).split('')
-          when numero.is_a?(Fixnum)
+          when numero.is_a?(Integer)
             numero.to_s.split('')
           else
             []

@@ -17,4 +17,9 @@ module TituloEleitoral
   def self.sigla_uf(numero)
     numero_inscricao(numero).sigla_uf
   end
+
+  def self.random
+    NumeroInscricao.new(nil).random
+  end
+
 end
